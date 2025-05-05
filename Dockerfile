@@ -7,41 +7,36 @@ LABEL maintainer="lorenzo.biosa@yahoo.it" \
 
 USER root
 
-# 1) Install curl to fetch binaries, then remove it to keep image minimal
-RUN microdnf install -y curl && \
+# 1) Install software
+RUN microdnf update -y && \
+    microdnf install -y tar gzip && \
     microdnf clean all
 
-# 2) Install kubectl (latest stable patch)  
-ARG KUBECTL_VERSION=v1.28.6  
+# 2) Install kubectl (latest stable patch)
 RUN curl -fsSL -o /usr/local/bin/kubectl \
-      https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
+    https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl && \
     chmod +x /usr/local/bin/kubectl
 
-# 3) Install jq  
-ARG JQ_VERSION=1.6  
+# 3) Install jq
+ARG JQ_VERSION=1.7.1
 RUN curl -fsSL -o /usr/local/bin/jq \
       https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64 && \
     chmod +x /usr/local/bin/jq
 
-# 4) Install OpenShift CLI (oc)  
-ARG OC_VERSION=4.13.0  
+# 4) Install OpenShift CLI (latest stable patch)
 RUN curl -fsSL -o /tmp/oc.tar.gz \
-      https://mirror.openshift.com/pub/openshift-v4/clients/oc/${OC_VERSION}/openshift-client-linux-${OC_VERSION}.tar.gz && \
+    https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-client-linux.tar.gz && \
     tar -xzf /tmp/oc.tar.gz -C /usr/local/bin oc && \
     chmod +x /usr/local/bin/oc && \
     rm /tmp/oc.tar.gz
 
-# 5) Clean up curl  
-RUN microdnf remove -y curl && \
-    microdnf clean all
-
-# 6) Create non-root user for OpenShift  
+# 5) Create non-root user for OpenShift
 RUN groupadd -r toolkit && useradd -r -g toolkit -d /home/toolkit -m toolkit && \
     mkdir -p /opt/toolkit && \
     chown -R toolkit:toolkit /home/toolkit /opt/toolkit
 
-USER toolkit  
+USER toolkit
 WORKDIR /home/toolkit
 
-ENTRYPOINT ["/bin/bash"]  
+ENTRYPOINT ["/bin/bash"]
 CMD ["-l"]
