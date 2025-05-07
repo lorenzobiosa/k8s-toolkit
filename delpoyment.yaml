@@ -17,11 +17,11 @@ spec:
         app: k8s-toolkit
     spec:
       serviceAccountName: toolkit-sa
-      securityContext:
-        runAsNonRoot: true
       containers:
       - name: k8s-toolkit
         image: tuo-registry/k8s-toolkit:latest
         imagePullPolicy: IfNotPresent
         stdin: true
         tty: true
+        securityContext:
+          privileged: true
