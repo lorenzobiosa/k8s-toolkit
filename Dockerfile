@@ -11,7 +11,7 @@ WORKDIR /root
 # Install software
 RUN dnf update -y && dnf install -y epel-release && \
     dnf install -y bash-completion bind-utils gzip htop iotop iputils \
-        man mtr net-tools nmap-ncat openssh-clients procps sysstat tar telnet tmux traceroute ttyd wget && \
+        man mtr net-tools nmap-ncat openssh-clients procps sysstat tar telnet tmux traceroute wget && \
     dnf clean all
 
 # Install kubectl (latest stable patch)
@@ -38,6 +38,12 @@ ARG JQ_VERSION=1.7.1
 RUN curl -fsSL -o /usr/local/bin/jq \
     https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64 && \
     chmod +x /usr/local/bin/jq
+
+# Install ttyd
+ARG TTYD_VERSION=1.7.7
+RUN curl -fsSL -o /usr/local/bin/ttyd \
+    https://github.com/tsl0922/ttyd/releases/download/${TTYD_VERSION}/ttyd.x86_64 && \
+    chmod +x /usr/local/bin/ttyd
 
 COPY entrypoint.sh /entrypoint.sh
 RUN mkdir /www
