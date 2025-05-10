@@ -25,3 +25,19 @@ spec:
         tty: true
         securityContext:
           privileged: true
+        env:
+          - name: ADMIN
+            valueFrom:
+              secretKeyRef:
+                name: k8s-toolkit
+                key: ADMIN
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: k8s-toolkit
+                key: PASSWORD
+        ports:
+          - containerPort: 8080
+            name: terminal
+          - containerPort: 8081
+            name: web
