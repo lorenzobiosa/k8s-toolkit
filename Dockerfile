@@ -9,9 +9,9 @@ USER root
 WORKDIR /root
 
 # Install software
-RUN dnf update -y && \
-    dnf install -y bash-completion bind-utils gzip iputils \
-        man mtr net-tools nmap-ncat openssh-clients procps tar tmux which wget && \
+RUN dnf update -y && dnf install -y epel-release && \
+    dnf install -y bash-completion bind-utils gzip htop iotop iputils \
+        man mtr net-tools nmap-ncat openssh-clients procps sysstat tar telnet tmux traceroute ttyd wget && \
     dnf clean all
 
 # Install kubectl (latest stable patch)
