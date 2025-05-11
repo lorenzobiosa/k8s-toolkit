@@ -48,6 +48,11 @@ RUN curl -fsSL -o /tmp/kubectl-neat.tar.gz \
     chmod +x /usr/local/bin/kubectl-neat && \
     rm /tmp/kubectl-neat.tar.gz
 
+# Install yq
+RUN curl -fsSL -o /usr/local/bin/yq \
+    https://github.com/mikefarah/yq/releases/download/v4.45.4/yq_linux_amd64 && \
+    chmod +x /usr/local/bin/yq
+
 RUN mkdir /www && updatedb && \
     echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc && \
     oc completion bash > /etc/profile.d/oc.sh && \
