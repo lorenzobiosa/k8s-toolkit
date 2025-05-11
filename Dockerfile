@@ -18,7 +18,7 @@ RUN curl https://packages.microsoft.com/config/rhel/9/prod.repo | tee /etc/yum.r
     dnf install -y https://download.oracle.com/otn_software/linux/instantclient/2380000/oracle-instantclient-sqlplus-23.8.0.25.04-1.el9.x86_64.rpm && \
     ACCEPT_EULA=Y dnf install -y adcli bash-completion bind-utils dhcping ethtool \
         fio file ftp fping gzip htop iftop ioping iotop iperf iperf3 iproute iptraf-ng iputils jq krb5-workstation \
-        libnsl man mariadb mc mlocate mongodb-mongosh mssql-tools18 mtr ncdu net-snmp-utils net-tools nmap nmap-ncat \
+        libnsl man mariadb mc mlocate mongodb-mongosh mssql-tools18 mtr ncdu netcat net-snmp-utils net-tools nmap \
         oddjob oddjob-mkhomedir openssh-clients openldap-clients \
         postgresql17 procps samba samba-common samba-winbind samba-winbind-clients sssd sssd-tools strace sysstat \
         tar tcpdump telnet tmux traceroute unixODBC-devel vim wireshark-cli wget which && \
