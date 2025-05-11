@@ -6,7 +6,7 @@ An all-in-one troubleshooting toolkit for **Kubernetes** and **OpenShift**, buil
 
 ## 🔧 Repository Structure
 
-* **Dockerfile**: UBI-based image.
+* **Dockerfile**: base image.
 * **deployment.yaml**: Deployment manifest for Kubernetes/OpenShift.
 * **serviceaccount-rbac.yaml**: ServiceAccount and ClusterRoleBinding (example as `cluster-admin`).
 * **README.md**: this file.
@@ -32,14 +32,9 @@ podman build -t <your-registry>/k8s-toolkit:latest .
 ### Build Options
 
 * **TAG**: image tag (e.g., `1.0`, `latest`).
-* **BUILD\_ARGS**: override default binary versions:
 
   ```bash
-  docker build \
-    --build-arg KUBECTL_VERSION=v1.28.6 \
-    --build-arg JQ_VERSION=1.6 \
-    --build-arg OC_VERSION=4.13.0 \
-    -t <your-registry>/k8s-toolkit:<TAG> .
+  docker build -t <your-registry>/k8s-toolkit:<TAG>
   ```
 
 ## 🚀 Pushing the Image
