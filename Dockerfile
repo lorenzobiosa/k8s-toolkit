@@ -54,6 +54,7 @@ RUN curl -fsSL -o /usr/local/bin/yq \
     chmod +x /usr/local/bin/yq
 
 RUN mkdir /www && updatedb && \
+    echo "alias ll='ls -al --color=auto'" >> ~/.bashrc && \
     echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc && \
     oc completion bash > /etc/profile.d/oc.sh && \
     kubectl completion bash > /etc/profile.d/kubectl.sh
