@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'Dockerfile'
+      - 'entrypoint.sh'
+      - '.github/workflows/docker-image.yml'
 
 jobs:
   build-and-push:
